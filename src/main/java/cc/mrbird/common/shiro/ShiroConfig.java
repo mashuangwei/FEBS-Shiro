@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import redis.clients.jedis.JedisPool;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,6 +39,9 @@ public class ShiroConfig {
 
     @Autowired
     private FebsProperties febsProperties;
+
+    @Autowired
+    private ShiroRealm shiroRealm;
 
     @Value("${spring.redis.host}")
     private String host;
@@ -60,8 +64,8 @@ public class ShiroConfig {
         RedisManager redisManager = new RedisManager();
         // 缓存时间，单位为秒
         //redisManager.setExpire(febsProperties.getShiro().getExpireIn()); // removed from shiro-redis v3.1.0 api
-        redisManager.setHost(host);
-        redisManager.setPort(port);
+        redisManager.setHost(host + ":6379");
+//        redisManager.setPort(port);
         if (StringUtils.isNotBlank(password))
             redisManager.setPassword(password);
         redisManager.setTimeout(timeout);
@@ -105,7 +109,7 @@ public class ShiroConfig {
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         // 配置 SecurityManager，并注入 shiroRealm
-        securityManager.setRealm(shiroRealm());
+        securityManager.setRealm(shiroRealm);
         // 配置 rememberMeCookie
         securityManager.setRememberMeManager(rememberMeManager());
         // 配置 缓存管理类 cacheManager
@@ -120,11 +124,11 @@ public class ShiroConfig {
         return new LifecycleBeanPostProcessor();
     }
 
-    @Bean
-    public ShiroRealm shiroRealm() {
-        // 配置 Realm，需自己实现，见 cc.mrbird.common.shiro.ShiroRealm
-        return new ShiroRealm();
-    }
+//    @Bean
+//    public ShiroRealm shiroRealm() {
+//        // 配置 Realm，需自己实现，见 cc.mrbird.common.shiro.ShiroRealm
+//        return new ShiroRealm();
+//    }
 
     /**
      * rememberMe cookie 效果是重开浏览器后无需重新登录

@@ -127,6 +127,7 @@ public class OneIsAllController extends BaseController {
         IdList il = new IdList();
         try {
             String idList = HttpUtils.sendGet(FebsConstant.ONE_ID_LIST_URL, STATIC_URL);
+            System.err.println("msw: " + idList);
             il = JSON.parseObject(idList, IdList.class);
             return il;
         } catch (Exception e) {

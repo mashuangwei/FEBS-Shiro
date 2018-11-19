@@ -4,17 +4,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cc.mrbird</groupId>
-    <artifactId>project</artifactId>
+    <artifactId>easy-shiro</artifactId>
     <version>2.0</version>
     <packaging>jar</packaging>
 
-    <name>febs</name>
+    <name>easy-shiro</name>
     <description>Authority Management System</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
+        <version>2.1.0.RELEASE</version>
         <relativePath/>
     </parent>
 
@@ -29,6 +29,22 @@
     </properties>
 
     <dependencies>
+        <!--<dependency>-->
+            <!--<groupId>com.baomidou</groupId>-->
+            <!--<artifactId>dynamic-datasource-spring-boot-starter</artifactId>-->
+            <!--<version>2.3.4</version>-->
+        <!--</dependency>-->
+        <!--&lt;!&ndash; 要用redis连接池 必须有pool依赖&ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.commons</groupId>-->
+            <!--<artifactId>commons-pool2</artifactId>-->
+            <!--<version>2.6.0</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.baomidou</groupId>-->
+            <!--<artifactId>mybatis-plus-boot-starter</artifactId>-->
+            <!--<version>3.0.5</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -62,14 +78,14 @@
         <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-spring-boot-starter</artifactId>
-            <version>1.1.7</version>
+            <version>2.0.4</version>
         </dependency>
 
         <!-- pagehelper 分页插件 -->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.2.5</version>
+            <version>1.2.10</version>
         </dependency>
 
         <dependency>
@@ -100,7 +116,7 @@
         <dependency>
             <groupId>org.crazycake</groupId>
             <artifactId>shiro-redis</artifactId>
-            <version>3.1.0</version>
+            <version>3.2.1</version>
         </dependency>
 
         <!-- shiro-thymeleaf -->
@@ -114,7 +130,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.31</version>
+            <version>1.2.52</version>
         </dependency>
 
         <!-- xss过滤 -->
@@ -306,6 +322,6 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>febs</finalName>
+        <finalName>easy-shiro</finalName>
     </build>
 </project>

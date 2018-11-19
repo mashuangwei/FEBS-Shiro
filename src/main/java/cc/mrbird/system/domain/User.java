@@ -319,4 +319,8 @@ public class User implements Serializable {
 	public Long getAuthCacheKey() {
 		return userId;
 	}
+
+	public Long getId() {
+		return userId;
+	}
 }

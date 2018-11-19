@@ -10,6 +10,7 @@ import cc.mrbird.common.util.vcode.GifCaptcha;
 import cc.mrbird.system.domain.User;
 import cc.mrbird.system.service.UserService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -26,6 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class LoginController extends BaseController {
@@ -47,7 +50,7 @@ public class LoginController extends BaseController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResponseBo login(String username, String password, String code, Boolean rememberMe) {
+    public ResponseBo loginWithBack(String username, String password, String code, Boolean rememberMe) {
         if (!StringUtils.isNotBlank(code)) {
             return ResponseBo.warn("验证码不能为空！");
         }
@@ -56,6 +59,19 @@ public class LoginController extends BaseController {
         if (!code.equalsIgnoreCase(sessionCode)) {
             return ResponseBo.warn("验证码错误！");
         }
+
+        return baseLogin(username, password, rememberMe);
+    }
+
+    @PostMapping("/user/login")
+    @ResponseBody
+    public ResponseBo loginWithRomete(String username, String password, String code, Boolean rememberMe) {
+
+        return baseLogin(username, password, rememberMe);
+
+    }
+
+    private ResponseBo baseLogin(String username, String password, Boolean rememberMe){
         // 密码 MD5 加密
         password = MD5Utils.encrypt(username.toLowerCase(), password);
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
@@ -71,6 +87,19 @@ public class LoginController extends BaseController {
         } catch (AuthenticationException e) {
             return ResponseBo.error("认证失败！");
         }
+    }
+
+    @PostMapping("/user/logout")
+    @ResponseBody
+    public Map logout(HttpServletResponse response, HttpServletRequest request){
+        System.err.println(request.getHeader("Origin"));
+        response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+        Map<String, Object> map = new HashMap<>();
+        Subject subject = getSubject();
+        subject.logout();
+        map.put("msg", "logout success");
+        return map;
     }
 
     @GetMapping(value = "gifCode")

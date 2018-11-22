@@ -212,7 +212,7 @@
         <dependency>
             <groupId>org.lionsoul</groupId>
             <artifactId>ip2region</artifactId>
-            <version>1.7</version>
+            <version>1.7.2</version>
         </dependency>
         <!-- jasypt-->
         <dependency>
@@ -236,7 +236,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <!--
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
@@ -268,7 +267,7 @@
                     <configurationFile>src/main/resources/config/mybatis-generator.xml</configurationFile>
                 </configuration>
             </plugin>
-            -->
+
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
